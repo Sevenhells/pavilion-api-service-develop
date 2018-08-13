@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.potevio.xacp.api.score.mappers.ScoreMapper">
+    <resultMap id="AllGoodsResultMap" type="com.potevio.xacp.api.score.reponse.MyPointGoods" autoMapping="true">
+        <id column="id" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="cover_image" jdbcType="VARCHAR" property="coverImage"/>
+        <result column="amount" jdbcType="DECIMAL" property="amount"/>
+    </resultMap>
+    <!-- 查询所有的积分商品信息 -->
+    <select id="selectAllGoods" resultMap="AllGoodsResultMap">
+        select id,name,cover_image,amount from point_goods
+        limit #{firstIndex},#{pageSize}
+    </select>
+
+
+    <resultMap id="myScore" type="com.potevio.xacp.api.score.reponse.MyPointCount" autoMapping="true">
+        <result column="balance" jdbcType="DECIMAL" property="score"/>
+    </resultMap>
+    <!-- 查询所有的积分商品信息 -->
+    <select id="findOne" resultMap="myScore">
+        select balance from point_account
+        where user_account_id = #{userId}
+    </select>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.potevio.xacp.api.base.mappers.MapDao">
+    <resultMap id="BaseResultMap" type="com.potevio.xacp.api.base.model.PavilionMap">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id" />
+
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="floor" jdbcType="INTEGER" property="floor" />
+        <result column="map_svg" jdbcType="VARCHAR" property="mapSvg" />
+        <result column="image" jdbcType="VARCHAR" property="image" />
+        <result column="version" jdbcType="INTEGER" property="version" />
+        <result column="created_at" jdbcType="INTEGER" property="createdAt" />
+        <result column="updated_at" jdbcType="INTEGER" property="updatedAt" />
+    </resultMap>
+    <select id="selectAllMaps" resultType="com.potevio.xacp.api.base.model.PavilionMap">
+        select id,name,floor,image,version
+        from pavilion_map
+    </select>
+</mapper>

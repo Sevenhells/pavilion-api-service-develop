@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.potevio.xacp.api.reservation.mappers.ReservationMapper">
+    <resultMap id="BaseResultMap" type="com.potevio.xacp.api.reservation.model.Reservation">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="user_account_id" jdbcType="VARCHAR" property="userAccountId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="idcard_number" jdbcType="DECIMAL" property="idcardNumber" />
+        <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+        <result column="visit_datetime" jdbcType="INTEGER" property="visitDateTime" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+        <result column="band_id" jdbcType="VARCHAR" property="bandId" />
+        <result column="enter_datetime" jdbcType="INTEGER" property="enterDatetime" />
+        <result column="exit_datetime" jdbcType="INTEGER" property="exitDatetime" />
+        <result column="created_at" jdbcType="INTEGER" property="createAt" />
+        <result column="updated_at" jdbcType="INTEGER" property="updatedAt" />
+    </resultMap>
+
+    <select id="checkCode" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT * FROM `reservation` r WHERE r.`status` = #{params_map.status} AND r.`code` = #{params_map.code}
+        AND r.`band_id` = #{params_map.band_id}
+        <![CDATA[
+        AND r.`visit_datetime` >= #{params_map.start_time}
+        AND r.`visit_datetime` < #{params_map.end_time}
+        ]]>
+    </select>
+
+</mapper>

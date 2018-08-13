@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.potevio.xacp.api.score.mappers.PointOrderMapper">
+    <resultMap id="OrderResultMap" type="com.potevio.xacp.api.score.reponse.MyPointOrder" autoMapping="true">
+        <id column="id" property="id"/>
+        <result column="order_no" property="orderNo"/>
+        <result column="status" property="status"/>
+        <result column="name" property="name"/>
+        <result column="cover_image" property="coverImage"/>
+        <result column="amount" property="amount"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+    <!-- 根据用户id查询积分兑换商品记录 -->
+    <select id="selectAllByUserId" resultMap="OrderResultMap">
+        select id,order_no,status,name,cover_image,amount,created_at from point_order where user_account_id = #{userId}
+        order by created_at desc limit #{firstIndex},#{pageSize}
+    </select>
+</mapper>

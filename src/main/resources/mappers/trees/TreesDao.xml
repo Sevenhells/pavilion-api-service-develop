@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.potevio.xacp.api.trees.mappers.TreesMyTreeOrderMapper">
+    <resultMap id="AllResultMap" type="com.potevio.xacp.api.trees.reponse.MyTreeOrder" autoMapping="true">
+    <id column="id" property="id"/>
+    <result column="trade_num" jdbcType="VARCHAR" property="tradeNum"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="serial_number" jdbcType="VARCHAR" property="serialNumber"/>
+    <result column="location" jdbcType="VARCHAR" property="location"/>
+    <result column="quality" jdbcType="VARCHAR" property="quality"/>
+    <result column="price" jdbcType="DECIMAL" property="price"/>
+    <result column="desc" jdbcType="VARCHAR" property="desc"/>
+    <result column="content" jdbcType="VARCHAR" property="content"/>
+    <result column="image" jdbcType="VARCHAR" property="image"/>
+    <result column="image2" jdbcType="VARCHAR" property="image2"/>
+</resultMap>
+
+    <!-- 根据用户id查询订单树木信息 -->
+    <select id="selectAllOrder" resultMap="AllResultMap">
+        select
+        tao.id,tao.trade_num,ts.serial_number,ts.name,ts.location,ts.quality,ts.price,ts.desc,ts.content,ts.image,ts.image2
+        from tree_adopt_order tao
+        left join tree_species ts
+        on tao.serial_number = ts.serial_number
+        where  tao.user_account_id = #{userId}
+        order by tao.created_at desc limit #{firstIndex},#{pageSize}
+    </select>
+
+    <resultMap id="ResultMap" type="com.potevio.xacp.api.trees.reponse.MyTreeSpecies" autoMapping="true">
+        <id column="id" property="id"/>
+        <result column="trade_num" jdbcType="VARCHAR" property="tradeNum"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="serial_number" jdbcType="VARCHAR" property="serialNumber"/>
+        <result column="location" jdbcType="VARCHAR" property="location"/>
+        <result column="quality" jdbcType="VARCHAR" property="quality"/>
+        <result column="desc" jdbcType="VARCHAR" property="desc"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="image" jdbcType="VARCHAR" property="image"/>
+        <result column="image2" jdbcType="VARCHAR" property="image2"/>
+    </resultMap>
+
+    <!-- 根据用户id查询订单树木信息 -->
+    <select id="selectMyTrees" resultMap="ResultMap">
+        select
+        tao.id,tao.trade_num,ts.serial_number,ts.name,ts.location,ts.quality,ts.desc,ts.content,ts.image,ts.image2
+        from tree_adopt_order tao
+        left join tree_species ts
+        on tao.serial_number = ts.serial_number
+        where  tao.user_account_id = #{userId} and tao.pay_status = 10
+        order by tao.created_at desc limit #{firstIndex},#{pageSize}
+    </select>
+</mapper>

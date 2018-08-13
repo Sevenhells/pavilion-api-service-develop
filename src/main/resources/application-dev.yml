@@ -1,0 +1,23 @@
+spring:
+    profiles: dev
+    redis:
+        database: 0
+        host: r-2zeadd9a9ff39af4.redis.rds.aliyuncs.com
+        password: pavilion@2018
+        port: 6379
+        timeout: 3000
+        pool:
+          max-idle: 50
+          min-idle: 20
+          max-active: 200
+          max-wait: 3000
+        # redis线程池设置
+druid:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://rm-2ze23u8did0t5re1jo.mysql.rds.aliyuncs.com:3306/db_citizens_pavilion_v2?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: pavilion
+    password: pavilion@2018
+    initial-size: 10
+    min-idle: 10
+    max-active: 20
+    test-on-borrow: true

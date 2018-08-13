@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.potevio.xacp.api.admin.mappers.AdminScoreMappers">
+    <update id="updateGoods" parameterType="com.potevio.xacp.api.admin.model.AdminPointGoods">
+        UPDATE point_goods
+        <trim prefix="set" suffixOverrides=",">
+            <if test="openAccountId!=null">open_account_id=#{openAccountId},</if>
+            <if test="name!=null">name=#{name},</if>
+            <if test="description!=null">description=#{description},</if>
+            <if test="content!=null">content=#{content},</if>
+            <if test="stock!=null">stock=#{stock},</if>
+            <if test="amount!=null">amount=#{amount},</if>
+            <if test="images!=null">images=#{images},</if>
+            <if test="coverImage!=null">cover_image=#{coverImage},</if>
+            <if test="updatedAt!=null">updated_at=#{updatedAt},</if>
+        </trim>
+        WHERE id=#{id}
+    </update>
+
+    <resultMap id="AllOrdersResultMap" type="com.potevio.xacp.api.admin.response.Orders" autoMapping="true">
+        <id column="id" property="id"/>
+        <result column="order_no" property="orderNo"/>
+        <result column="point_account_id" property="pointAccountId"/>
+        <result column="user_account_id" property="userAccountId"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_mobile" property="userMobile"/>
+        <result column="name" property="name"/>
+        <result column="status" property="status"/>
+        <result column="cover_image" property="coverImage"/>
+        <result column="open_account" property="openAccount"/>
+        <result column="description" property="description"/>
+        <result column="content" property="content"/>
+        <result column="amount" property="amount"/>
+        <result column="coupon_code" property="couponCode"/>
+        <result column="coupon_expiration" property="couponExpiration"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+
+    <select id="selectAllOrders" resultMap="AllOrdersResultMap">
+        select po.id,po.order_no,pa.id point_account_id,po.user_account_id,ua.name user_name,ua.mobile user_mobile,
+        pg.name,po.status,pg.cover_image,oa.name open_account,pg.description,pg.content,po.amount,
+        po.coupon_code,po.coupon_expiration,po.created_at
+        from point_order po
+        left join point_account pa
+        on po.user_account_id = pa.user_account_id
+        left join user_account ua
+        on po.user_account_id = ua.id
+        left join point_goods pg
+        on po.good_id = pg.id
+        left join open_account oa
+        on pg.open_account_id = oa.id
+        limit #{firstIndex},#{pageSize}
+    </select>
+</mapper>

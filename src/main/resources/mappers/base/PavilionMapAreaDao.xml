@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.potevio.xacp.api.base.mappers.PavilionMapAreaDao">
+    <resultMap id="BaseResultMap" type="com.potevio.xacp.api.base.model.PavilionMapArea">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="pavilion_map_id" jdbcType="INTEGER" property="pavilionMapId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="localtion" jdbcType="VARCHAR" property="localtion" />
+        <result column="coordinate_x" jdbcType="DECIMAL" property="coordinateX" />
+        <result column="coordinate_y" jdbcType="DECIMAL" property="coordinateY" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
+        <result column="video" jdbcType="VARCHAR" property="video" />
+        <result column="images" jdbcType="VARCHAR" property="images" />
+        <result column="created_at" jdbcType="INTEGER" property="createdAt" />
+        <result column="updated_at" jdbcType="INTEGER" property="updatedAt" />
+    </resultMap>
+
+    <select id="selectByMapId" resultType="com.potevio.xacp.api.base.model.PavilionMapArea">
+        select id,name,localtion,coordinate_x,coordinate_y,content,created_at
+        from pavilion_map_area
+        where pavilion_map_id = #{id}
+    </select>
+</mapper>

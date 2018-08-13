@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.potevio.xacp.api.base.mappers.APPVersionDao">
+    <resultMap id="BaseResultMap" type="com.potevio.xacp.api.base.model.APPVersion">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="url" jdbcType="VARCHAR" property="url" />
+        <result column="version_code" jdbcType="INTEGER" property="versionCode" />
+        <result column="version_name" jdbcType="VARCHAR" property="versionName" />
+        <result column="update_log" jdbcType="VARCHAR" property="updateLog" />
+        <result column="source" jdbcType="VARCHAR" property="source" />
+        <result column="created_at" jdbcType="INTEGER" property="createdAt" />
+    </resultMap>
+    <select id="selectNew" resultType="com.potevio.xacp.api.base.model.APPVersion">
+        select url,version_code,version_name,update_log,source
+        from app_version
+        where version_code=(select MAX(version_code) from app_version)
+    </select>
+</mapper>
